@@ -12,7 +12,7 @@ db.connect((err) => {
         console.error("MySQL connection failed:", err);
         return;
     }
-    console.log("✅ Connected to MySQL");
+    console.log("Connected to MySQL");
 });
 
 export default db;

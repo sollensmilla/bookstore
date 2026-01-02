@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Create account</h1>
+
+    <form method="POST" action="/register">
+      <div class="grid">
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+      </div>
+
+      <input type="text" name="address" placeholder="Address" required>
+      <input type="text" name="city" placeholder="City" required>
+
+      <div class="grid">
+        <input type="text" name="zip" placeholder="Zip code" pattern="[0-9]{5}" required>
+        <input type="tel" name="phone" placeholder="Phone number" required>
+      </div>
+
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" minlength="6" required>
+
+      <button type="submit" class="btn full">Register</button>
+    </form>
+
+    <p class="text-small">
+      Already a member? <a href="/login">Login here</a>
+    </p>
+  </main>
+</body>
+</html>
