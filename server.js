@@ -1,8 +1,13 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import db from "./config/db.js";
 
 const app = express();
 const PORT = 3017;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -10,7 +15,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-const authRoutes = require("./routes/auth");
+import authRoutes from "./routes/auth.js";
 app.use("/", authRoutes);
 
 app.listen(PORT, () => {
