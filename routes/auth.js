@@ -21,6 +21,18 @@ router.post(
     authController.register.bind(authController)
 );
 
+import { requireAuth } from "../middleware/auth.js";
+
+router.get("/logged-in", requireAuth, (req, res) => {
+    const success = req.session.success;
+    delete req.session.success;
+
+    res.render("logged-in", {
+        member: req.session.member,
+        success
+    });
+});
+
 router.get("/search", (req, res) => {
     res.render("search");
 });
