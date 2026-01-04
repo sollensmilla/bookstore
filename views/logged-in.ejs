@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Logged in</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main class="card">
+
+        <% if (success) { %>
+            <div class="alert success">
+                <%= success %>
+            </div>
+            <% } %>
+
+                <h1>Welcome</h1>
+
+                <p>
+                    Logged in as
+                    <strong>
+                        <%= member.firstName %>
+                            <%= member.lastName %>
+                    </strong>
+                </p>
+
+                <form method="POST" action="/logout">
+                    <button class="btn">Log out</button>
+                </form>
+
+    </main>
+</body>
+
+</html>
