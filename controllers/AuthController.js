@@ -13,14 +13,36 @@ export default class AuthController {
 
             memberData.password = await this.#hashPassword(memberData.password);
 
-            await this.#createMember(memberData);
+            const member = await this.#createMember(memberData);
 
-            return this.#renderLoginSuccess(res);
+            this.#createSession(req, member);
+
+            req.session.success = "Account created successfully";
+
+            return res.redirect("/logged-in");
 
         } catch (err) {
             console.error(err);
             return this.#renderRegisterError(res, "Something went wrong");
         }
+    }
+
+    async login(req, res) {
+        const { email, password } = req.body;
+
+        const member = await Member.findByEmail(email);
+        if (!member) {
+            return res.render("login", { error: "Invalid credentials" });
+        }
+
+        const valid = await bcrypt.compare(password, member.password);
+        if (!valid) {
+            return res.render("login", { error: "Invalid credentials" });
+        }
+
+        this.#createSession(req, member);
+
+        return res.redirect("/logged-in");
     }
 
     #extractMemberData(body) {
@@ -60,5 +82,14 @@ export default class AuthController {
         return res.render("login", {
             success: "Account created successfully"
         });
+    }
+
+    #createSession(req, member) {
+        req.session.member = {
+            id: member.id,
+            firstName: member.firstName,
+            lastName: member.lastName,
+            email: member.email
+        };
     }
 }
