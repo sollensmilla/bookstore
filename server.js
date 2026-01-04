@@ -12,6 +12,15 @@ const __dirname = path.dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+import session from "express-session";
+
+app.use(session({
+    name: "session-id",
+    secret: "super-secret-key",
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
