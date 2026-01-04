@@ -12,6 +12,12 @@ router.get("/login", (req, res) => {
     res.render("login");
 });
 
+router.post("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/login");
+    });
+});
+
 router.get("/register", (req, res) => {
     res.render("register");
 });
