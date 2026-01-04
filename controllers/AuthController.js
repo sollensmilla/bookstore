@@ -87,8 +87,8 @@ export default class AuthController {
     #createSession(req, member) {
         req.session.member = {
             id: member.id,
-            firstName: member.firstName,
-            lastName: member.lastName,
+            fname: member.fname,
+            lname: member.lname,
             email: member.email
         };
     }
