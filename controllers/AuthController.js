@@ -5,7 +5,7 @@ export default class AuthController {
 
     async register(req, res) {
         try {
-            const memberData = this.extractMemberData(req.body);
+            const memberData = this.#extractMemberData(req.body);
 
             if (await this.#memberExists(memberData.email)) {
                 return this.#renderRegisterError(res, "Email already exists");

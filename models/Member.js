@@ -1,4 +1,4 @@
-import db from "../database/db.js";
+import db from "../config/db.js";
 
 export default class Member {
     constructor({
@@ -21,7 +21,7 @@ export default class Member {
         this.password = password;
     }
 
-    findByEmail(email) {
+    static findByEmail(email) {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM members WHERE email = ?";
             db.query(sql, [email], (err, result) => {
