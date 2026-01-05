@@ -26,10 +26,15 @@
                     </strong>
                 </p>
 
-                <form method="POST" action="/logout">
-                    <button class="btn">Log out</button>
-                </form>
+                <div style="display:flex; gap:0.5rem; justify-content:center;">
+                    <form method="POST" action="/logout">
+                        <button class="btn">Log out</button>
+                    </form>
 
+                    <form method="GET" action="/search">
+                        <button class="btn">Search books</button>
+                    </form>
+                </div>
     </main>
     <script>
         const flash = document.getElementById("flash");

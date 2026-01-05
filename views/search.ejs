@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search books</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main class="card">
+        <h1>Our Books</h1>
+
+        <p class="subtitle">
+            Logged in as <strong>
+                <%= member.fname %>
+                    <%= member.lname %>
+            </strong>
+        </p>
+
+        <form method="GET" action="#">
+            <label>Select Subject</label>
+            <input type="text" name="subject" placeholder="Humour">
+            <button class="btn full">Filter by Subject</button>
+        </form>
+
+        <hr>
+
+        <form method="GET" action="#">
+            <label>Search by Author</label>
+            <input type="text" name="author" placeholder="Enter author name">
+            <button class="btn full">Search by Author</button>
+        </form>
+
+        <hr>
+
+        <form method="GET" action="#">
+            <label>Search by Title</label>
+            <input type="text" name="title" placeholder="Enter book title">
+            <button class="btn full">Search by Title</button>
+        </form>
+
+        <hr>
+
+        <h3>Items per page</h3>
+        <div class="menu">
+            <button class="btn-outline">2</button>
+            <button class="btn-outline">3</button>
+            <button class="btn-outline">5</button>
+            <button class="btn-outline">10</button>
+            <button class="btn-outline">20</button>
+        </div>
+
+        <p class="text-small" style="margin-top:2rem;">
+            <a href="/logged-in">← Back</a>
+        </p>
+    </main>
+</body>
+
+</html>

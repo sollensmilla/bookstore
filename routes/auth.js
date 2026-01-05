@@ -46,8 +46,10 @@ router.get("/logged-in", requireAuth, (req, res) => {
     });
 });
 
-router.get("/search", (req, res) => {
-    res.render("search");
+router.get("/search", requireAuth, (req, res) => {
+    res.render("search", {
+        member: req.session.member
+    });
 });
 
 export default router;
