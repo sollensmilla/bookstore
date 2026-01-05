@@ -104,6 +104,31 @@ input:focus {
     text-decoration: none;
 }
 
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 4.5rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.toggle-password:hover {
+  text-decoration: underline;
+}
+
 .alert {
     padding: 0.8rem 1rem;
     border-radius: 8px;

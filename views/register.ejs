@@ -37,8 +37,13 @@
                     </div>
 
                     <input type="email" name="email" placeholder="Email" value="<%= formData?.email || '' %>" required>
-                    <input type="password" name="password" placeholder="Password" minlength="6" required>
-
+                    <div class="password-field">
+                        <input type="password" name="password" id="password" placeholder="Password" minlength="6"
+                            required>
+                        <button type="button" class="toggle-password" data-target="password">
+                            Show
+                        </button>
+                    </div>
                     <button type="submit" class="btn full">Register</button>
                 </form>
 
@@ -46,6 +51,21 @@
                     Already a member? <a href="/login">Login here</a>
                 </p>
     </main>
+    <script>
+        document.querySelectorAll(".toggle-password").forEach(button => {
+            button.addEventListener("click", () => {
+                const input = document.getElementById(button.dataset.target);
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    button.textContent = "Hide";
+                } else {
+                    input.type = "password";
+                    button.textContent = "Show";
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
