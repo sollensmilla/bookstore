@@ -11,108 +11,135 @@
     <main class="card">
         <h1>Our Books</h1>
 
-        <p class="subtitle">
-            Logged in as <strong>
-                <%= member.fname %>
-                    <%= member.lname %>
-            </strong>
-        </p>
+        <% if (flash) { %>
+            <div class="alert <%= flash.type %>">
+                <%= flash.message %>
+            </div>
+            <% } %>
 
-        <form method="GET" action="/books">
-            <label>Filter by Category</label>
+                <p class="subtitle">
+                    Logged in as <strong>
+                        <%= member.fname %>
+                            <%= member.lname %>
+                    </strong>
+                </p>
 
-            <details class="category-dropdown">
-                <summary class="category-summary">
-                    Select categories
-                </summary>
+                <form method="GET" action="/books">
+                    <label>Filter by Category</label>
 
-                <div class="category-list">
-                    <label>
-                        <input type="checkbox" name="category" value="Thriller & Mystery"> Thriller & Mystery
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Crime"> Crime
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Action & Adventure"> Action & Adventure
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Internet & Digital Media"> Internet & Digital
-                        Media
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Computing"> Computing
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Film & Photography"> Film & Photography
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Arts"> Arts
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Linguistics & Writing"> Linguistics & Writing
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Language"> Language
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Romance"> Romance
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Sports"> Sports
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Diaries & True Accounts"> Diaries & True Accounts
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Biographies"> Biographies
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Humour"> Humour
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Comics & Mangas"> Comics & Mangas
-                    </label>
-                    <label>
-                        <input type="checkbox" name="category" value="Politics"> Politics
-                    </label>
+                    <details class="category-dropdown">
+                        <summary class="category-summary">
+                            Select categories
+                        </summary>
+
+                        <div class="category-list">
+                            <label>
+                                <input type="checkbox" name="category" value="Thriller & Mystery"> Thriller & Mystery
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Crime"> Crime
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Action & Adventure"> Action & Adventure
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Internet & Digital Media"> Internet &
+                                Digital
+                                Media
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Computing"> Computing
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Film & Photography"> Film & Photography
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Arts"> Arts
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Linguistics & Writing"> Linguistics &
+                                Writing
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Language"> Language
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Romance"> Romance
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Sports"> Sports
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Diaries & True Accounts"> Diaries & True
+                                Accounts
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Biographies"> Biographies
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Humour"> Humour
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Comics & Mangas"> Comics & Mangas
+                            </label>
+                            <label>
+                                <input type="checkbox" name="category" value="Politics"> Politics
+                            </label>
+                        </div>
+                    </details>
+
+                    <button class="btn full">Filter</button>
+                </form>
+
+
+                <hr>
+
+                <form method="GET" action="#">
+                    <label>Search by Author</label>
+                    <input type="text" name="author" placeholder="Enter author name">
+                    <button class="btn full">Search by Author</button>
+                </form>
+
+                <hr>
+
+                <form method="GET" action="#">
+                    <label>Search by Title</label>
+                    <input type="text" name="title" placeholder="Enter book title">
+                    <button class="btn full">Search by Title</button>
+                </form>
+
+                <hr>
+
+                <h3>Items per page</h3>
+                <div class="menu">
+                    <button class="btn-outline">2</button>
+                    <button class="btn-outline">3</button>
+                    <button class="btn-outline">5</button>
+                    <button class="btn-outline">10</button>
+                    <button class="btn-outline">20</button>
                 </div>
-            </details>
 
-            <button class="btn full">Filter</button>
-        </form>
+                <% if (books && books.length> 0) { %>
+                    <h2 style="margin-top:2rem;">Books</h2>
 
+                    <% books.forEach(book=> { %>
+                        <div
+                            style="border:1px solid #ddd; padding:1rem; border-radius:10px; margin-bottom:1rem; text-align:left;">
+                            <strong>
+                                <%= book.title %>
+                            </strong><br>
+                            <span class="text-small">
+                                Author: <%= book.author %><br>
+                                    Price: <%= book.price %> SEK<br>
+                                        Category: <%= book.category %>
+                            </span>
+                        </div>
+                        <% }) %>
+                            <% } %>
 
-        <hr>
-
-        <form method="GET" action="#">
-            <label>Search by Author</label>
-            <input type="text" name="author" placeholder="Enter author name">
-            <button class="btn full">Search by Author</button>
-        </form>
-
-        <hr>
-
-        <form method="GET" action="#">
-            <label>Search by Title</label>
-            <input type="text" name="title" placeholder="Enter book title">
-            <button class="btn full">Search by Title</button>
-        </form>
-
-        <hr>
-
-        <h3>Items per page</h3>
-        <div class="menu">
-            <button class="btn-outline">2</button>
-            <button class="btn-outline">3</button>
-            <button class="btn-outline">5</button>
-            <button class="btn-outline">10</button>
-            <button class="btn-outline">20</button>
-        </div>
-
-        <p class="text-small" style="margin-top:2rem;">
-            <a href="/logged-in">← Back</a>
-        </p>
+                                <p class="text-small" style="margin-top:2rem;">
+                                    <a href="/logged-in">← Back</a>
+                                </p>
     </main>
 </body>
 

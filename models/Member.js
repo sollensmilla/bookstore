@@ -2,6 +2,7 @@ import db from "../config/db.js";
 
 export default class Member {
     constructor({
+        id,
         fname,
         lname,
         address,
@@ -11,6 +12,7 @@ export default class Member {
         email,
         password
     }) {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.address = address;
@@ -21,25 +23,25 @@ export default class Member {
         this.password = password;
     }
 
-    static findByEmail(email) {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM members WHERE email = ?";
-            db.query(sql, [email], (err, result) => {
-                if (err) return reject(err);
-                resolve(result[0] || null);
-            });
-        });
+    static async findByEmail(email) {
+        const [rows] = await db.query(
+            "SELECT * FROM members WHERE email = ?",
+            [email]
+        );
+
+        if (rows.length === 0) return null;
+
+        return new Member(rows[0]);
     }
 
-    save() {
-        return new Promise((resolve, reject) => {
-            const sql = `
-                INSERT INTO members
-                (fname, lname, address, city, zip, phone, email, password)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `;
-
-            const values = [
+    async save() {
+        const [result] = await db.query(
+            `
+            INSERT INTO members
+            (fname, lname, address, city, zip, phone, email, password)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            `,
+            [
                 this.fname,
                 this.lname,
                 this.address,
@@ -48,13 +50,10 @@ export default class Member {
                 this.phone,
                 this.email,
                 this.password
-            ];
+            ]
+        );
 
-            db.query(sql, values, (err, result) => {
-                if (err) return reject(err);
-                this.id = result.insertId;
-                resolve(this);
-            });
-        });
+        this.id = result.insertId;
+        return this;
     }
 }
