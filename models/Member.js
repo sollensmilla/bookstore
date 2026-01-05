@@ -2,8 +2,8 @@ import db from "../config/db.js";
 
 export default class Member {
     constructor({
-        firstName,
-        lastName,
+        fname,
+        lname,
         address,
         city,
         zip,
@@ -11,8 +11,8 @@ export default class Member {
         email,
         password
     }) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.fname = fname;
+        this.lname = lname;
         this.address = address;
         this.city = city;
         this.zip = zip;
@@ -34,14 +34,14 @@ export default class Member {
     save() {
         return new Promise((resolve, reject) => {
             const sql = `
-        INSERT INTO members
-        (fname, lname, address, city, zip, phone, email, password)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `;
+                INSERT INTO members
+                (fname, lname, address, city, zip, phone, email, password)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            `;
 
             const values = [
-                this.firstName,
-                this.lastName,
+                this.fname,
+                this.lname,
                 this.address,
                 this.city,
                 this.zip,
@@ -52,7 +52,8 @@ export default class Member {
 
             db.query(sql, values, (err, result) => {
                 if (err) return reject(err);
-                resolve(result);
+                this.id = result.insertId;
+                resolve(this);
             });
         });
     }

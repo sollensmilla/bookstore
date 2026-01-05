@@ -64,7 +64,16 @@ export default class AuthController {
             password
         } = body;
 
-        return { firstName, lastName, address, city, zip, phone, email, password };
+        return {
+            fname: firstName,
+            lname: lastName,
+            address,
+            city,
+            zip,
+            phone,
+            email,
+            password
+        };
     }
 
     async #memberExists(email) {
