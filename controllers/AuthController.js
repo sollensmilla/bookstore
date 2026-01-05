@@ -8,7 +8,11 @@ export default class AuthController {
             const memberData = this.#extractMemberData(req.body);
 
             if (await this.#memberExists(memberData.email)) {
-                return this.#renderRegisterError(res, "Email already exists");
+                return this.#renderRegisterError(
+                    res,
+                    "Email already in use",
+                    memberData
+                );
             }
 
             memberData.password = await this.#hashPassword(memberData.password);
@@ -77,8 +81,11 @@ export default class AuthController {
         return member.save();
     }
 
-    #renderRegisterError(res, message) {
-        return res.render("register", { error: message });
+    #renderRegisterError(res, message, formData = {}) {
+        return res.render("register", {
+            error: message,
+            formData
+        });
     }
 
     #createSession(req, member) {
