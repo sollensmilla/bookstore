@@ -17,7 +17,10 @@ export default class AuthController {
 
             this.#createSession(req, member);
 
-            req.session.success = "Account created successfully";
+            req.session.flash = {
+                type: "success",
+                message: "Account created successfully"
+            };
 
             return res.redirect("/logged-in");
 
@@ -76,12 +79,6 @@ export default class AuthController {
 
     #renderRegisterError(res, message) {
         return res.render("register", { error: message });
-    }
-
-    #renderLoginSuccess(res) {
-        return res.render("login", {
-            success: "Account created successfully"
-        });
     }
 
     #createSession(req, member) {

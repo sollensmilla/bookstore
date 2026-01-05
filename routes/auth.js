@@ -34,12 +34,12 @@ router.post(
 );
 
 router.get("/logged-in", requireAuth, (req, res) => {
-    const success = req.session.success;
-    delete req.session.success;
+    const flash = req.session.flash;
+    delete req.session.flash;
 
     res.render("logged-in", {
         member: req.session.member,
-        success
+        flash
     });
 });
 

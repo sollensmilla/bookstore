@@ -10,9 +10,9 @@
 <body>
     <main class="card">
 
-        <% if (success) { %>
-            <div class="alert success">
-                <%= success %>
+        <% if (flash) { %>
+            <div class="alert <%= flash.type %>" id="flash">
+                <%= flash.message %>
             </div>
             <% } %>
 
@@ -31,6 +31,15 @@
                 </form>
 
     </main>
+    <script>
+        const flash = document.getElementById("flash");
+        if (flash) {
+            setTimeout(() => {
+                flash.style.opacity = "0";
+                setTimeout(() => flash.remove(), 500);
+            }, 3000);
+        }
+    </script>
 </body>
 
 </html>
