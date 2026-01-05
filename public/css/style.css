@@ -105,28 +105,73 @@ input:focus {
 }
 
 .password-field {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .password-field input {
-  width: 100%;
-  padding-right: 4.5rem;
+    width: 100%;
+    padding-right: 4.5rem;
 }
 
 .toggle-password {
-  position: absolute;
-  right: 0.6rem;
-  background: none;
-  border: none;
-  color: #4f46e5;
-  font-size: 0.85rem;
-  cursor: pointer;
+    position: absolute;
+    right: 0.6rem;
+    background: none;
+    border: none;
+    color: #4f46e5;
+    font-size: 0.85rem;
+    cursor: pointer;
 }
 
 .toggle-password:hover {
-  text-decoration: underline;
+    text-decoration: underline;
+}
+
+.category-dropdown {
+    text-align: left;
+}
+
+.category-summary {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 0.95rem;
+    background: #fff;
+    list-style: none;
+}
+
+.category-summary:hover {
+    border-color: #4f46e5;
+}
+
+.category-dropdown[open] .category-summary {
+    border-color: #4f46e5;
+}
+
+.category-list {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f9fafb;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+}
+
+.category-list label {
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+.category-list input {
+    accent-color: #4f46e5;
 }
 
 .alert {

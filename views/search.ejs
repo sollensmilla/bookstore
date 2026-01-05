@@ -18,11 +18,70 @@
             </strong>
         </p>
 
-        <form method="GET" action="#">
-            <label>Select Subject</label>
-            <input type="text" name="subject" placeholder="Humour">
-            <button class="btn full">Filter by Subject</button>
+        <form method="GET" action="/books">
+            <label>Filter by Category</label>
+
+            <details class="category-dropdown">
+                <summary class="category-summary">
+                    Select categories
+                </summary>
+
+                <div class="category-list">
+                    <label>
+                        <input type="checkbox" name="category" value="Thriller & Mystery"> Thriller & Mystery
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Crime"> Crime
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Action & Adventure"> Action & Adventure
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Internet & Digital Media"> Internet & Digital
+                        Media
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Computing"> Computing
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Film & Photography"> Film & Photography
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Arts"> Arts
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Linguistics & Writing"> Linguistics & Writing
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Language"> Language
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Romance"> Romance
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Sports"> Sports
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Diaries & True Accounts"> Diaries & True Accounts
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Biographies"> Biographies
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Humour"> Humour
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Comics & Mangas"> Comics & Mangas
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Politics"> Politics
+                    </label>
+                </div>
+            </details>
+
+            <button class="btn full">Filter</button>
         </form>
+
 
         <hr>
 
