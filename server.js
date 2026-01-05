@@ -27,6 +27,9 @@ app.set("views", path.join(__dirname, "views"));
 import authRoutes from "./routes/auth.js";
 app.use("/", authRoutes);
 
+import booksRoutes from "./routes/books.js";
+app.use("/", booksRoutes);
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
