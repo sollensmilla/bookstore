@@ -34,56 +34,75 @@
 
                         <div class="category-list">
                             <label>
-                                <input type="checkbox" name="category" value="Thriller & Mystery"> Thriller & Mystery
+                                <input type="checkbox" name="category" value="Thriller & Mystery"
+                                    <%=selectedCategories.includes("Thriller & Mystery") ? "checked" : "" %>> Thriller &
+                                Mystery
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Crime"> Crime
+                                <input type="checkbox" name="category" value="Crime"
+                                    <%=selectedCategories.includes("Crime") ? "checked" : "" %>> Crime
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Action & Adventure"> Action & Adventure
+                                <input type="checkbox" name="category" value="Action & Adventure"
+                                    <%=selectedCategories.includes("Action & Adventure") ? "checked" : "" %>> Action &
+                                Adventure
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Internet & Digital Media"> Internet &
-                                Digital
-                                Media
+                                <input type="checkbox" name="category" value="Internet & Digital Media"
+                                    <%=selectedCategories.includes("Internet & Digital Media") ? "checked" : "" %>>
+                                Internet & Digital Media
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Computing"> Computing
+                                <input type="checkbox" name="category" value="Computing"
+                                    <%=selectedCategories.includes("Computing") ? "checked" : "" %>> Computing
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Film & Photography"> Film & Photography
+                                <input type="checkbox" name="category" value="Film & Photography"
+                                    <%=selectedCategories.includes("Film & Photography") ? "checked" : "" %>> Film &
+                                Photography
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Arts"> Arts
+                                <input type="checkbox" name="category" value="Arts"
+                                    <%=selectedCategories.includes("Arts") ? "checked" : "" %>> Arts
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Linguistics & Writing"> Linguistics &
-                                Writing
+                                <input type="checkbox" name="category" value="Linguistics & Writing"
+                                    <%=selectedCategories.includes("Linguistics & Writing") ? "checked" : "" %>>
+                                Linguistics & Writing
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Language"> Language
+                                <input type="checkbox" name="category" value="Language"
+                                    <%=selectedCategories.includes("Language") ? "checked" : "" %>> Language
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Romance"> Romance
+                                <input type="checkbox" name="category" value="Romance"
+                                    <%=selectedCategories.includes("Romance") ? "checked" : "" %>> Romance
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Sports"> Sports
+                                <input type="checkbox" name="category" value="Sports"
+                                    <%=selectedCategories.includes("Sports") ? "checked" : "" %>> Sports
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Diaries & True Accounts"> Diaries & True
-                                Accounts
+                                <input type="checkbox" name="category" value="Diaries & True Accounts"
+                                    <%=selectedCategories.includes("Diaries & True Accounts") ? "checked" : "" %>>
+                                Diaries & True Accounts
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Biographies"> Biographies
+                                <input type="checkbox" name="category" value="Biographies"
+                                    <%=selectedCategories.includes("Biographies") ? "checked" : "" %>> Biographies
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Humour"> Humour
+                                <input type="checkbox" name="category" value="Humour"
+                                    <%=selectedCategories.includes("Humour") ? "checked" : "" %>> Humour
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Comics & Mangas"> Comics & Mangas
+                                <input type="checkbox" name="category" value="Comics & Mangas"
+                                    <%=selectedCategories.includes("Comics & Mangas") ? "checked" : "" %>> Comics &
+                                Mangas
                             </label>
                             <label>
-                                <input type="checkbox" name="category" value="Politics"> Politics
+                                <input type="checkbox" name="category" value="Politics"
+                                    <%=selectedCategories.includes("Politics") ? "checked" : "" %>> Politics
                             </label>
                         </div>
                     </details>
@@ -112,11 +131,11 @@
 
                 <h3>Items per page</h3>
                 <div class="menu">
-                    <button class="btn-outline">2</button>
-                    <button class="btn-outline">3</button>
-                    <button class="btn-outline">5</button>
-                    <button class="btn-outline">10</button>
-                    <button class="btn-outline">20</button>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=2">2</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=3">3</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=5">5</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=10">10</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=20">20</a>
                 </div>
 
                 <% if (books && books.length> 0) { %>
@@ -137,9 +156,31 @@
                         <% }) %>
                             <% } %>
 
-                                <p class="text-small" style="margin-top:2rem;">
-                                    <a href="/logged-in">← Back</a>
-                                </p>
+                                <% if (totalPages> 1) { %>
+                                    <div class="pagination">
+
+                                        <% if (page> 1) { %>
+                                            <a href="/books?<%= queryString %>&page=<%= page - 1 %>">← Prev</a>
+                                            <% } %>
+
+                                                <% for (let i=Math.max(1, page - 2); i <=Math.min(totalPages, page + 2);
+                                                    i++) { %>
+                                                    <a href="/books?<%= queryString %>&page=<%= i %>"
+                                                        class="<%= i === page ? 'active' : '' %>">
+                                                        <%= i %>
+                                                    </a>
+                                                    <% } %>
+
+                                                        <% if (page < totalPages) { %>
+                                                            <a href="/books?<%= queryString %>&page=<%= page + 1 %>">Next
+                                                                →</a>
+                                                            <% } %>
+                                    </div>
+                                    <% } %>
+
+                                        <p class="text-small" style="margin-top:2rem;">
+                                            <a href="/logged-in">← Back</a>
+                                        </p>
     </main>
 </body>
 

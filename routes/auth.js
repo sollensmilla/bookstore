@@ -47,9 +47,7 @@ router.get("/logged-in", requireAuth, (req, res) => {
 });
 
 router.get("/search", requireAuth, (req, res) => {
-    res.render("search", {
-        member: req.session.member
-    });
+    res.redirect("/books");
 });
 
 export default router;

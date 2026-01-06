@@ -1,18 +1,30 @@
 import express from "express";
 import db from "../config/db.js";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/books", async (req, res) => {
+router.get("/books", requireAuth, async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = (page - 1) * limit;
+
+    const categories = [].concat(req.query.category || []);
+
+    const queryParams = [];
+
+    queryParams.push(`limit=${limit}`);
+
+    categories.forEach(cat => {
+        queryParams.push(`category=${encodeURIComponent(cat)}`);
+    });
+
+    const queryString = queryParams.join("&");
+
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = 5;
-        const offset = (page - 1) * limit;
-
-        // Kategorier från query (checkboxar)
-        const categories = [].concat(req.query.category || []);
-
-        // --- 1. Hämta totalt antal böcker med filter ---
+        /* ============================
+           1. COUNT – hur många böcker totalt?
+        ============================ */
         let countSql = `SELECT COUNT(*) AS total FROM books`;
         const countParams = [];
 
@@ -22,12 +34,17 @@ router.get("/books", async (req, res) => {
             categories.forEach(cat => countParams.push(`%${cat}%`));
         }
 
-        const [countResult] = await db.query(countSql, countParams);
-        const totalBooks = countResult[0].total;
-        const totalPages = Math.ceil(totalBooks / limit);
+        const [[{ total }]] = await db.query(countSql, countParams);
+        const totalPages = Math.ceil(total / limit);
 
-        // --- 2. Hämta böcker med LIMIT och OFFSET ---
-        let sql = `SELECT isbn AS id, title, author, price, category FROM books`;
+        /* ============================
+           2. Hämta bara rätt sida
+        ============================ */
+        let sql = `
+            SELECT isbn AS id, title, author, price, category
+            FROM books
+        `;
+
         const params = [];
 
         if (categories.length > 0) {
@@ -41,21 +58,27 @@ router.get("/books", async (req, res) => {
 
         const [books] = await db.query(sql, params);
 
-        // Flash om inga böcker
-        if (books.length === 0 && categories.length > 0) {
+        /* ============================
+           3. Flash-meddelande om tomt
+        ============================ */
+        if (total === 0) {
             req.session.flash = {
                 type: "error",
-                message: "No books found for selected category"
+                message: "No books found for this category."
             };
         }
 
-        // --- 3. Rendera sidan ---
+        /* ============================
+           4. Render
+        ============================ */
         res.render("search", {
             member: req.session.member,
             books,
             page,
+            limit,
             totalPages,
             selectedCategories: categories,
+            queryString,
             flash: req.session.flash
         });
 
@@ -63,7 +86,7 @@ router.get("/books", async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Server error");
+        res.status(500).send("Database error");
     }
 });
 
