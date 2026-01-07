@@ -35,21 +35,27 @@ export default class AuthController {
     }
 
     async login(req, res) {
-        const { email, password } = req.body;
+        try {
+            const { email, password } = req.body;
 
-        const member = await Member.findByEmail(email);
-        if (!member) {
-            return res.render("login", { error: "Invalid credentials" });
+            const member = await Member.findByEmail(email);
+            if (!member) {
+                return res.render("login", { error: "Invalid credentials" });
+            }
+
+            const valid = await bcrypt.compare(password, member.password);
+            if (!valid) {
+                return res.render("login", { error: "Invalid credentials" });
+            }
+
+            this.#createSession(req, member);
+
+            return res.redirect("/logged-in");
+
+        } catch (err) {
+            console.error(err);
+            return res.render("login", { error: "Something went wrong" });
         }
-
-        const valid = await bcrypt.compare(password, member.password);
-        if (!valid) {
-            return res.render("login", { error: "Invalid credentials" });
-        }
-
-        this.#createSession(req, member);
-
-        return res.redirect("/logged-in");
     }
 
     #extractMemberData(body) {
