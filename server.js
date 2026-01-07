@@ -44,6 +44,9 @@ app.use("/", authRoutes);
 import booksRoutes from "./routes/books.js";
 app.use("/", booksRoutes);
 
+import cartRoutes from "./routes/cart.js";
+app.use("/", cartRoutes);
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
