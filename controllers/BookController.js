@@ -1,4 +1,5 @@
 import Book from "../models/Book.js";
+import Cart from "../models/Cart.js";
 
 export default class BookController {
 
@@ -6,6 +7,10 @@ export default class BookController {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 5;
         const offset = (page - 1) * limit;
+        
+        const userid = req.session.member.id;
+
+        const cartCount = await Cart.countItems(userid);
 
         const categories = [].concat(req.query.category || []);
         const author = req.query.author?.trim();
@@ -44,6 +49,7 @@ export default class BookController {
             res.render("search", {
                 member: req.session.member,
                 books,
+                cartCount,
                 page,
                 limit,
                 totalPages,

@@ -182,6 +182,27 @@ input:focus {
     margin-top: 1rem;
 }
 
+.cart-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #222;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cart-badge {
+    background: crimson;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    margin-left: 0.4rem;
+}
+
 .alert {
     padding: 0.8rem 1rem;
     border-radius: 8px;

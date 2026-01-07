@@ -8,6 +8,15 @@
 </head>
 
 <body>
+    <a href="/cart" class="cart-btn">
+        🛒 Cart
+        <% if (cartCount> 0) { %>
+            <span class="cart-badge">
+                <%= cartCount %>
+            </span>
+            <% } %>
+    </a>
+
     <main class="card">
         <h1>Our Books</h1>
 
