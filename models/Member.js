@@ -25,7 +25,11 @@ export default class Member {
 
     static async findByEmail(email) {
         const [rows] = await db.query(
-            "SELECT * FROM members WHERE email = ?",
+            `SELECT 
+            userid AS id,
+            fname, lname, address, city, zip, phone, email, password
+         FROM members 
+         WHERE email = ?`,
             [email]
         );
 

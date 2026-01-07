@@ -8,7 +8,7 @@ const router = express.Router();
    ADD TO CART
 ============================ */
 router.post("/cart/add", requireAuth, async (req, res) => {
-    const userid = req.session.member.userid;
+    const userid = req.session.member.id;
     const { isbn } = req.body;
 
     try {
@@ -26,7 +26,7 @@ router.post("/cart/add", requireAuth, async (req, res) => {
             message: "Book added to cart"
         };
 
-        res.redirect("back"); // tillbaka till search
+        res.redirect("/search");
     } catch (err) {
         console.error(err);
         res.status(500).send("Database error");
@@ -37,7 +37,7 @@ router.post("/cart/add", requireAuth, async (req, res) => {
    VIEW CART
 ============================ */
 router.get("/cart", requireAuth, async (req, res) => {
-    const userid = req.session.member.userid;
+    const userid = req.session.member.id;
 
     try {
         const [items] = await db.query(
@@ -76,7 +76,7 @@ router.get("/cart", requireAuth, async (req, res) => {
    REMOVE FROM CART
 ============================ */
 router.post("/cart/remove", requireAuth, async (req, res) => {
-    const userid = req.session.member.userid;
+    const userid = req.session.member.id;
     const { isbn } = req.body;
 
     await db.query(
