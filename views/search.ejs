@@ -15,113 +15,116 @@
             <div class="alert <%= flash.type %>">
                 <%= flash.message %>
             </div>
-        <% } %>
+            <% } %>
 
-        <p class="subtitle">
-            Logged in as <strong><%= member.fname %> <%= member.lname %></strong>
-        </p>
+                <p class="subtitle">
+                    Logged in as <strong>
+                        <%= member.fname %>
+                            <%= member.lname %>
+                    </strong>
+                </p>
 
-        <!-- CATEGORY FILTER -->
-        <form method="GET" action="/books">
-            <label>Filter by Category</label>
+                <form method="GET" action="/books">
+                    <label>Filter by Category</label>
 
-            <details class="category-dropdown">
-                <summary class="category-summary">Select categories</summary>
+                    <details class="category-dropdown">
+                        <summary class="category-summary">Select categories</summary>
 
-                <div class="category-list">
-                    <% const allCategories = [
-                        "Thriller & Mystery", "Crime", "Action & Adventure",
-                        "Internet & Digital Media", "Computing", "Film & Photography",
-                        "Arts", "Linguistics & Writing", "Language", "Romance",
-                        "Sports", "Diaries & True Accounts", "Biographies",
-                        "Humour", "Comics & Mangas", "Politics"
-                    ]; %>
+                        <div class="category-list">
+                            <% const allCategories=[ "Thriller & Mystery" , "Crime" , "Action & Adventure"
+                                , "Internet & Digital Media" , "Computing" , "Film & Photography" , "Arts"
+                                , "Linguistics & Writing" , "Language" , "Romance" , "Sports"
+                                , "Diaries & True Accounts" , "Biographies" , "Humour" , "Comics & Mangas" , "Politics"
+                                ]; %>
 
-                    <% allCategories.forEach(cat => { %>
-                        <label>
-                            <input type="checkbox" name="category" value="<%= cat %>"
-                                <%= selectedCategories.includes(cat) ? "checked" : "" %>>
-                            <%= cat %>
-                        </label>
-                    <% }) %>
+                                <% allCategories.forEach(cat=> { %>
+                                    <label>
+                                        <input type="checkbox" name="category" value="<%= cat %>"
+                                            <%=selectedCategories.includes(cat) ? "checked" : "" %>>
+                                        <%= cat %>
+                                    </label>
+                                    <% }) %>
+                        </div>
+                    </details>
+
+                    <button class="btn full">Filter</button>
+                </form>
+
+                <hr>
+
+                <form method="GET" action="/books">
+                    <label>Search by Author</label>
+                    <input type="text" name="author" placeholder="Enter author name" value="<%= author || '' %>">
+                    <button class="btn full">Search by Author</button>
+                </form>
+
+                <hr>
+
+                <form method="GET" action="/books">
+                    <label>Search by Title</label>
+                    <input type="text" name="title" placeholder="Enter book title" value="<%= title || '' %>">
+                    <button class="btn full">Search by Title</button>
+                </form>
+
+                <hr>
+
+                <h3>Items per page</h3>
+                <div class="menu">
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=2">2</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=3">3</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=5">5</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=10">10</a>
+                    <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=20">20</a>
                 </div>
-            </details>
 
-            <button class="btn full">Filter</button>
-        </form>
+                <% if (books && books.length> 0) { %>
+                    <h2 style="margin-top:2rem;">Books</h2>
 
-        <hr>
+                    <% books.forEach(book=> { %>
+                        <div class="book-card"
+                            style="border:1px solid #ddd; padding:1rem; border-radius:10px; margin-bottom:1rem;">
+                            <strong>
+                                <%= book.title %>
+                            </strong><br>
+                            <span class="text-small">
+                                Author: <%= book.author %><br>
+                                    Price: <%= book.price %> SEK<br>
+                                        Category: <%= book.category %>
+                            </span>
 
-        <!-- SEARCH BY AUTHOR -->
-        <form method="GET" action="/books">
-            <label>Search by Author</label>
-            <input type="text" name="author" placeholder="Enter author name"
-                   value="<%= author || '' %>">
-            <button class="btn full">Search by Author</button>
-        </form>
+                            <form method="POST" action="/cart/add" style="margin-top:1rem;">
+                                <input type="hidden" name="isbn" value="<%= book.id %>">
+                                <button class="btn full">Add to cart</button>
+                            </form>
+                        </div>
+                        <% }) %>
+                            <% } %>
 
-        <hr>
+                                <% if (totalPages> 1) { %>
+                                    <div class="pagination">
 
-        <!-- SEARCH BY TITLE -->
-        <form method="GET" action="/books">
-            <label>Search by Title</label>
-            <input type="text" name="title" placeholder="Enter book title"
-                   value="<%= title || '' %>">
-            <button class="btn full">Search by Title</button>
-        </form>
+                                        <% if (page> 1) { %>
+                                            <a href="/books?<%= queryString %>&page=<%= page - 1 %>">← Prev</a>
+                                            <% } %>
 
-        <hr>
+                                                <% for (let i=Math.max(1, page - 2); i <=Math.min(totalPages, page + 2);
+                                                    i++) { %>
+                                                    <a href="/books?<%= queryString %>&page=<%= i %>"
+                                                        class="<%= i === page ? 'active' : '' %>">
+                                                        <%= i %>
+                                                    </a>
+                                                    <% } %>
 
-        <!-- ITEMS PER PAGE -->
-        <h3>Items per page</h3>
-        <div class="menu">
-            <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=2">2</a>
-            <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=3">3</a>
-            <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=5">5</a>
-            <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=10">10</a>
-            <a class="btn-outline" href="/books?<%= queryString.replace(/limit=\d+/, '') %>&limit=20">20</a>
-        </div>
+                                                        <% if (page < totalPages) { %>
+                                                            <a href="/books?<%= queryString %>&page=<%= page + 1 %>">Next
+                                                                →</a>
+                                                            <% } %>
+                                    </div>
+                                    <% } %>
 
-        <!-- BOOK LIST -->
-        <% if (books && books.length > 0) { %>
-            <h2 style="margin-top:2rem;">Books</h2>
-
-            <% books.forEach(book => { %>
-                <div style="border:1px solid #ddd; padding:1rem; border-radius:10px; margin-bottom:1rem;">
-                    <strong><%= book.title %></strong><br>
-                    <span class="text-small">
-                        Author: <%= book.author %><br>
-                        Price: <%= book.price %> SEK<br>
-                        Category: <%= book.category %>
-                    </span>
-                </div>
-            <% }) %>
-        <% } %>
-
-        <!-- PAGINATION -->
-        <% if (totalPages > 1) { %>
-            <div class="pagination">
-
-                <% if (page > 1) { %>
-                    <a href="/books?<%= queryString %>&page=<%= page - 1 %>">← Prev</a>
-                <% } %>
-
-                <% for (let i = Math.max(1, page - 2); i <= Math.min(totalPages, page + 2); i++) { %>
-                    <a href="/books?<%= queryString %>&page=<%= i %>"
-                       class="<%= i === page ? 'active' : '' %>">
-                        <%= i %>
-                    </a>
-                <% } %>
-
-                <% if (page < totalPages) { %>
-                    <a href="/books?<%= queryString %>&page=<%= page + 1 %>">Next →</a>
-                <% } %>
-            </div>
-        <% } %>
-
-        <p class="text-small" style="margin-top:2rem;">
-            <a href="/logged-in">← Back</a>
-        </p>
+                                        <p class="text-small" style="margin-top:2rem;">
+                                            <a href="/logged-in">← Back</a>
+                                        </p>
     </main>
 </body>
 
