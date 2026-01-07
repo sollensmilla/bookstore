@@ -47,13 +47,13 @@ app.use((req, res, next) => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-import authRoutes from "./routes/auth.js";
+import authRoutes from "./routes/authRoutes.js";
 app.use("/", authRoutes);
 
-import booksRoutes from "./routes/books.js";
+import booksRoutes from "./routes/bookRoutes.js";
 app.use("/", booksRoutes);
 
-import cartRoutes from "./routes/cart.js";
+import cartRoutes from "./routes/cartRoutes.js";
 app.use("/", cartRoutes);
 
 app.listen(PORT, () => {
