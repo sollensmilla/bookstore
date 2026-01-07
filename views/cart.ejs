@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<main class="card">
+    <h1>Your Cart</h1>
+
+    <% if (flash) { %>
+        <div class="alert <%= flash.type %>"><%= flash.message %></div>
+    <% } %>
+
+    <% if (items.length === 0) { %>
+        <p>Your cart is empty.</p>
+    <% } else { %>
+        <% items.forEach(item => { %>
+            <div class="cart-item">
+                <strong><%= item.title %></strong><br>
+                Qty: <%= item.qty %><br>
+                Price: <%= item.price %> SEK<br>
+                Total: <%= item.total %> SEK
+
+                <form method="POST" action="/cart/remove">
+                    <input type="hidden" name="isbn" value="<%= item.isbn %>">
+                    <button class="btn-outline">Remove</button>
+                </form>
+            </div>
+        <% }) %>
+
+        <hr>
+        <h3>Total: <%= totalSum %> SEK</h3>
+    <% } %>
+
+    <p><a href="/books">← Continue shopping</a></p>
+</main>
+</body>
+</html>
