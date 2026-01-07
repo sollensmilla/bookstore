@@ -12,6 +12,15 @@ const __dirname = path.dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+try {
+    const conn = await db.getConnection();
+    console.log("Database connected");
+    conn.release();
+} catch (err) {
+    console.error("Database connection failed:", err);
+    process.exit(1);
+}
+
 import session from "express-session";
 
 app.use(session({
