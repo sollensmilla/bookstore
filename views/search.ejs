@@ -98,7 +98,8 @@
                             <span class="text-small">
                                 Author: <%= book.author %><br>
                                     Price: <%= book.price %> SEK<br>
-                                        Category: <%= book.category %>
+                                        Category: <%= book.category %><br>
+                                            ISBN: <%= book.id %>
                             </span>
 
                             <form method="POST" action="/cart/add"

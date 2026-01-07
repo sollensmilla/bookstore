@@ -1,40 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Your Cart</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-<main class="card">
-    <h1>Your Cart</h1>
+    <main class="card cart">
+        <h1>Your Cart</h1>
 
-    <% if (flash) { %>
-        <div class="alert <%= flash.type %>"><%= flash.message %></div>
-    <% } %>
-
-    <% if (items.length === 0) { %>
-        <p>Your cart is empty.</p>
-    <% } else { %>
-        <% items.forEach(item => { %>
-            <div class="cart-item">
-                <strong><%= item.title %></strong><br>
-                Qty: <%= item.qty %><br>
-                Price: <%= item.price %> SEK<br>
-                Total: <%= item.total %> SEK
-
-                <form method="POST" action="/cart/remove">
-                    <input type="hidden" name="isbn" value="<%= item.isbn %>">
-                    <button class="btn-outline">Remove</button>
-                </form>
+        <% if (flash) { %>
+            <div class="alert <%= flash.type %>">
+                <%= flash.message %>
             </div>
-        <% }) %>
+            <% } %>
 
-        <hr>
-        <h3>Total: <%= totalSum %> SEK</h3>
-    <% } %>
+                <% if (items.length===0) { %>
+                    <p class="empty-cart">Your cart is empty.</p>
+                    <% } else { %>
 
-    <p><a href="/books">← Continue shopping</a></p>
-</main>
+                        <div class="cart-list">
+                            <% items.forEach(item=> { %>
+                                <div class="cart-item">
+                                    <div class="cart-info">
+                                        <strong class="title">
+                                            <%= item.title %>
+                                        </strong>
+                                        <span class="isbn">ISBN: <%= item.isbn %></span>
+                                        <span>Qty: <%= item.qty %></span>
+                                        <span>Price: <%= item.price %> SEK</span>
+                                    </div>
+
+                                    <div class="cart-right">
+                                        <div class="item-total">
+                                            <%= item.total %> SEK
+                                        </div>
+
+                                        <form method="POST" action="/cart/remove">
+                                            <input type="hidden" name="isbn" value="<%= item.isbn %>">
+                                            <button class="btn-outline small">Remove</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+
+                        <div class="cart-summary">
+                            <div class="sum-row">
+                                <span>Total</span>
+                                <strong>
+                                    <%= totalSum %> SEK
+                                </strong>
+                            </div>
+
+                            <button class="btn checkout-btn full">Checkout</button>
+                        </div>
+
+                        <% } %>
+
+                            <p class="text-small"><a href="/books">← Continue shopping</a></p>
+    </main>
 </body>
+
 </html>

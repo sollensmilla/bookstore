@@ -16,7 +16,7 @@ body {
     background: #fff;
     padding: 2.5rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     border-radius: 14px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     text-align: center;
@@ -201,6 +201,86 @@ input:focus {
     padding: 0.2rem 0.5rem;
     font-size: 0.8rem;
     margin-left: 0.4rem;
+}
+
+.cart {
+    text-align: left;
+}
+
+.cart-list {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.cart-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cart-info .title {
+    font-size: 1rem;
+}
+
+.isbn {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.cart-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.item-total {
+    font-weight: bold;
+}
+
+.cart-summary {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.sum-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.checkout-btn {
+    background: #22c55e;
+}
+
+.checkout-btn:hover {
+    background: #16a34a;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #666;
+    margin: 2rem 0;
+}
+
+.btn.small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
 }
 
 .alert {
