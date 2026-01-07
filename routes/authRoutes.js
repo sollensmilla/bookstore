@@ -37,7 +37,7 @@ router.post(
 );
 
 router.get("/logged-in", requireAuth, (req, res) => {
-    const flash = req.session.flash;
+    const flash = req.session.flash || null;
     delete req.session.flash;
 
     res.render("logged-in", {

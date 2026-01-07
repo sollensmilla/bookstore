@@ -31,16 +31,9 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    res.locals.flash = req.session.flash || null;
     res.locals.books = [];
     res.locals.selectedCategories = [];
     res.locals.page = 1;
-    next();
-});
-
-app.use((req, res, next) => {
-    res.locals.flash = req.session.flash;
-    req.session.flash = null;
     next();
 });
 
