@@ -2,14 +2,14 @@ import db from "../config/db.js";
 
 export default class Cart {
 
-    static async add(userid, isbn) {
+    static async add(userid, isbn, qty = 1) {
         await db.query(
             `
             INSERT INTO cart (userid, isbn, qty)
-            VALUES (?, ?, 1)
-            ON DUPLICATE KEY UPDATE qty = qty + 1
+            VALUES (?, ?, ?)
+            ON DUPLICATE KEY UPDATE qty = qty + ?
             `,
-            [userid, isbn]
+            [userid, isbn, qty, qty]
         );
     }
 
@@ -37,5 +37,13 @@ export default class Cart {
             `DELETE FROM cart WHERE userid = ? AND isbn = ?`,
             [userid, isbn]
         );
+    }
+
+    static async countItems(userid) {
+        const [rows] = await db.query(
+            `SELECT SUM(qty) AS total FROM cart WHERE userid = ?`,
+            [userid]
+        );
+        return rows[0].total || 0;
     }
 }

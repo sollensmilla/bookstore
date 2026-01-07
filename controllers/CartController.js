@@ -4,14 +4,16 @@ export default class CartController {
 
     async add(req, res) {
         const userid = req.session.member.id;
-        const { isbn } = req.body;
+        const { isbn, quantity } = req.body;
+
+        const qty = parseInt(quantity) || 1;
 
         try {
-            await Cart.add(userid, isbn);
+            await Cart.add(userid, isbn, qty);
 
             req.session.flash = {
                 type: "success",
-                message: "Book added to cart"
+                message: `${qty} book(s) added to cart`
             };
 
             res.redirect("/search");
