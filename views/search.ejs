@@ -104,7 +104,11 @@
 
                             <form method="POST" action="/cart/add"
                                 style="margin-top:1rem; display:flex; gap:0.5rem; align-items:center;">
+
                                 <input type="hidden" name="isbn" value="<%= book.id %>">
+
+                                <input type="hidden" name="redirectTo"
+                                    value="/books?<%= queryString %>&page=<%= page %>">
 
                                 <input type="number" name="quantity" value="1" min="1"
                                     style="width:60px; padding:0.3rem;">

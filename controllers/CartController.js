@@ -16,7 +16,8 @@ export default class CartController {
                 message: `${qty} book(s) added to cart`
             };
 
-            res.redirect("/search");
+            const redirectTo = req.body.redirectTo || "/books";
+            res.redirect(redirectTo);
         } catch (err) {
             console.error(err);
             res.status(500).send("Database error");
