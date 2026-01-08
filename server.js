@@ -46,6 +46,9 @@ app.use("/", authRoutes);
 import booksRoutes from "./routes/bookRoutes.js";
 app.use("/", booksRoutes);
 
+import checkoutRoutes from "./routes/checkoutRoutes.js";
+app.use("/checkout", checkoutRoutes);
+
 import cartRoutes from "./routes/cartRoutes.js";
 app.use("/", cartRoutes);
 

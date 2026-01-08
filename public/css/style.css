@@ -283,6 +283,75 @@ input:focus {
     font-size: 0.8rem;
 }
 
+.invoice-card {
+    background: #fff;
+    padding: 2rem;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: left;
+}
+
+.invoice-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.invoice-number {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.invoice-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.invoice-meta span {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.invoice-address {
+    margin-bottom: 1.5rem;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.invoice-table th {
+    text-align: left;
+    padding: 0.75rem;
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.invoice-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.invoice-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+}
+
+.invoice-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
 .alert {
     padding: 0.8rem 1rem;
     border-radius: 8px;

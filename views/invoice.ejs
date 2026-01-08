@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main class="invoice-card" id="invoice">
+        <header class="invoice-header">
+            <h1>Invoice</h1>
+            <p class="invoice-number">Order no. <strong>
+                    <%= orderNo %>
+                </strong></p>
+        </header>
+
+        <section class="invoice-meta">
+            <div>
+                <span>Order date</span>
+                <strong>
+                    <%= orderDate.toDateString() %>
+                </strong>
+            </div>
+            <div>
+                <span>Estimated delivery date</span>
+                <strong>
+                    <%= deliveryDate.toDateString() %>
+                </strong>
+            </div>
+        </section>
+
+        <section class="invoice-address">
+            <h3>Shipping address</h3>
+            <p>
+                <%= member.fname %> <%= member.lname %><br>
+                <%= member.address %><br>
+                    <%= member.city %>, <%= member.zip %>
+            </p>
+        </section>
+
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cart.forEach(item=> { %>
+                    <tr>
+                        <td>
+                            <%= item.isbn %>
+                        </td>
+                        <td>
+                            <%= item.title %>
+                        </td>
+                        <td>
+                            <%= item.price %> SEK
+                        </td>
+                        <td>
+                            <%= item.qty %>
+                        </td>
+                        <td>
+                            <%= item.total %> SEK
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <div class="invoice-total">
+            <span>Total</span>
+            <strong>
+                <%= total %> SEK
+            </strong>
+        </div>
+
+        <div class="invoice-actions">
+            <button class="btn" onclick="downloadPDF()">Download PDF</button>
+            <button class="btn btn-outline" onclick="downloadImage()">Download Image</button>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById("invoice");
+            html2pdf()
+                .set({
+                    margin: 10,
+                    filename: "invoice-<%= orderNo %>.pdf",
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: "mm", format: "a4" }
+                })
+                .from(element)
+                .save();
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        function downloadImage() {
+            const element = document.getElementById("invoice");
+            html2canvas(element, { scale: 2 }).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "invoice-<%= orderNo %>.jpg";
+                link.href = canvas.toDataURL("image/jpeg");
+                link.click();
+            });
+        }
+    </script>
+
+</body>
+
+</html>
