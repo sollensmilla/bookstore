@@ -289,7 +289,7 @@ input:focus {
     width: 100%;
     max-width: 700px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     text-align: left;
 }
 
@@ -350,6 +350,24 @@ input:focus {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
+}
+
+.invoice-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.keep-shopping {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.keep-shopping:hover {
+    color: #444;
 }
 
 .alert {

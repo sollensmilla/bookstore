@@ -46,4 +46,11 @@ export default class Cart {
         );
         return rows[0].total || 0;
     }
+
+    static async clear(userid) {
+        await db.query(
+            "DELETE FROM cart WHERE userid = ?",
+            [userid]
+        );
+    }
 }

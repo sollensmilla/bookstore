@@ -36,6 +36,8 @@ export default class CheckoutController {
                 );
             }
 
+            await Cart.clear(user.id);
+
             const orderDate = new Date();
             const deliveryDate = new Date();
             deliveryDate.setDate(orderDate.getDate() + 7);

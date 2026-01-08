@@ -14,6 +14,8 @@ router.get("/invoice", requireAuth, (req, res) => {
     order.orderDate = new Date(order.orderDate);
     order.deliveryDate = new Date(order.deliveryDate);
 
+    req.session.lastOrder = null;
+
     res.render("invoice", order);
 });
 
