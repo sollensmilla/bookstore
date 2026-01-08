@@ -21,7 +21,7 @@
         <h1>Our Books</h1>
 
         <% if (flash) { %>
-            <div class="alert <%= flash.type %>">
+            <div class="alert <%= flash.type %>" id="flash">
                 <%= flash.message %>
             </div>
             <% } %>
@@ -145,6 +145,15 @@
                                             <a href="/logged-in">← Back</a>
                                         </p>
     </main>
+    <script>
+        const flash = document.getElementById("flash");
+        if (flash) {
+            setTimeout(() => {
+                flash.style.opacity = "0";
+                setTimeout(() => flash.remove(), 500);
+            }, 3000);
+        }
+    </script>
 </body>
 
 </html>
